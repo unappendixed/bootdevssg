@@ -15,7 +15,7 @@ class ParentNode(HTMLNode):
     def to_html(self) -> str:
         if self.tag is None:
             raise ValueError("cannot construct ParentNode html without tag")
-        if len( self.children ) == 0:
+        if len(self.children) == 0:
             raise ValueError("cannot construct ParentNode html without children")
 
         str_builder = ""

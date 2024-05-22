@@ -36,12 +36,20 @@ class TestTextNode(unittest.TestCase):
 
     def test_text_node_to_html_node_image(self):
         node = TextNode("a beautiful sunrise", "image", "images/sunrise.png")
-        expected = LeafNode("img", "", {"src": "images/sunrise.png", "alt": "a beautiful sunrise"})
+        expected = LeafNode(
+            "img", "", {"src": "images/sunrise.png", "alt": "a beautiful sunrise"}
+        )
         self.assertEqual(text_node_to_html_node(node), expected)
 
     def test_text_node_to_html_node_link(self):
-        node = TextNode("click here to purchase", "link", "https://buystuff.store/some-product")
-        expected = LeafNode("a", "click here to purchase", {"href": "https://buystuff.store/some-product"})
+        node = TextNode(
+            "click here to purchase", "link", "https://buystuff.store/some-product"
+        )
+        expected = LeafNode(
+            "a",
+            "click here to purchase",
+            {"href": "https://buystuff.store/some-product"},
+        )
         self.assertEqual(text_node_to_html_node(node), expected)
 
     def test_split_nodes_delimiter_single_bold(self):
