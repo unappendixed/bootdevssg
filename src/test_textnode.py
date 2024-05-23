@@ -2,9 +2,10 @@ import unittest
 from leafnode import LeafNode
 from textnode import (
     TextNode,
+    extract_markdown_links,
     split_nodes_delimiter,
     text_node_to_html_node,
-    # extract_markdown_images
+    extract_markdown_images
 )
 
 
@@ -93,6 +94,17 @@ class TestTextNode(unittest.TestCase):
 
         self.assertEqual(split_nodes_delimiter([node], "*", "italic"), expected)
 
+    def test_extract_markdown_images_single(self):
+        text = "This is some ![markdown text](images/snippet.png) with an image."
+        expected = [TextNode("markdown text", "image", "images/snippet.png")]
+        self.assertEqual(extract_markdown_images(text), expected)
+        pass
+
+    def test_extract_markdown_links_single(self):
+        text = "Check out this [website](https://links.biz/nice-one) for more."
+        expected = [TextNode("website", "link", "https://links.biz/nice-one")]
+        self.assertEqual(extract_markdown_links(text), expected)
+        pass
 
 if __name__ == "__main__":
     unittest.main()
