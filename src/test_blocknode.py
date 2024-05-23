@@ -7,13 +7,13 @@ class TestBlockNode(unittest.TestCase):
     def test_str_to_block_paragraph(self):
         text = "This is a regular markdown paragraph.\nIt spans multiple  lines."
         actual = str_to_block(text)
-        expected = BlockNode([TextNode(text, "text")], block_type_paragraph)
+        expected = BlockNode(text, block_type_paragraph)
         self.assertEqual(actual, expected)
 
     def test_str_to_block_heading(self):
         text = markdown_to_blocks("## Overview")[0]
         actual = str_to_block(text)
-        expected = BlockNode([TextNode("Overview", "text")], block_type_heading, 2)
+        expected = BlockNode("Overview", block_type_heading, 2)
 
         self.assertEqual(actual, expected)
 
@@ -25,9 +25,7 @@ class TestBlockNode(unittest.TestCase):
         """.strip()
 
         actual = str_to_block(text)
-        expected = BlockNode(
-            [TextNode('console.log("Hello world!");', "text")], block_type_code
-        )
+        expected = BlockNode('console.log("Hello world!");', block_type_code)
 
         self.assertEqual(actual, expected)
 
@@ -37,12 +35,7 @@ class TestBlockNode(unittest.TestCase):
         )[0]
         actual = str_to_block(text)
         expected = BlockNode(
-            [
-                TextNode(
-                    "So it goes,\nOr the way that I was told,\nThere was a king",
-                    "text",
-                )
-            ],
+            "So it goes,\nOr the way that I was told,\nThere was a king",
             block_type_quote,
         )
 
@@ -54,24 +47,11 @@ class TestBlockNode(unittest.TestCase):
         1. Don't pick up the phone.
         2. Don't let him in.
         3. If you're under him, you're not getting over him.
-        """.strip()
+        """
         )[0]
         actual = str_to_block(text)
         expected = BlockNode(
-            [
-                TextNode(
-                    "Don't pick up the phone.",
-                    "text",
-                ),
-                TextNode(
-                    "Don't let him in.",
-                    "text",
-                ),
-                TextNode(
-                    "If you're under him, you're not getting over him.",
-                    "text",
-                ),
-            ],
+            "Don't pick up the phone.\nDon't let him in.\nIf you're under him, you're not getting over him.",
             block_type_ol,
         )
         self.assertEqual(actual, expected)
@@ -80,12 +60,7 @@ class TestBlockNode(unittest.TestCase):
         text = markdown_to_blocks("""* Eggs\n* Butter\n* Beer\n* Long lost brother""")
         actual = str_to_block(text[0])
         expected = BlockNode(
-            [
-                TextNode("Eggs", "text"),
-                TextNode("Butter", "text"),
-                TextNode("Beer", "text"),
-                TextNode("Long lost brother", "text"),
-            ],
+            "Eggs\nButter\nBeer\nLong lost brother",
             block_type_ul,
         )
 
