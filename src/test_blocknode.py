@@ -1,7 +1,6 @@
-from types import CodeType
 import unittest
 from blocknode import *
-from textnode import markdown_to_blocks
+from inlinetextconv import markdown_to_blocks
 
 
 class TestBlockNode(unittest.TestCase):
