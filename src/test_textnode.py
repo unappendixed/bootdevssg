@@ -201,8 +201,8 @@ class TestTextNode(unittest.TestCase):
         This is not.
         """
         expected = [
-            "This is some very nice markdown text. This is part of the same paragraph.",
-            "This is not."
+            "This is some very nice markdown text.\nThis is part of the same paragraph.",
+            "This is not.",
         ]
         self.assertEqual(markdown_to_blocks(input), expected)
 

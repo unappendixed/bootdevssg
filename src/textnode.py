@@ -6,7 +6,7 @@ import re
 
 class TextNode:
     def __init__(self, text: str, text_type: str, url: str | None = None):
-        self.text = text
+        self.text = text.strip()
         self.text_type = text_type
         self.url = url
 
@@ -143,14 +143,15 @@ def text_to_textnodes(text: str) -> list[TextNode]:
 
     return node
 
+
 def markdown_to_blocks(markdown: str) -> list[str]:
 
     def flattenBuffer(buffer: list[str]) -> str:
-         output = " ".join(x for x in buffer if x.strip() != "").strip()
-         if output != "":
-             return output
-         else:
-             return ""
+        output = "\n".join(x for x in buffer if x.strip() != "").strip()
+        if output != "":
+            return output
+        else:
+            return ""
 
     lines = markdown.splitlines(True)
     output_list: list[str] = []
@@ -169,5 +170,3 @@ def markdown_to_blocks(markdown: str) -> list[str]:
         if final != "":
             output_list.append(final)
     return output_list
-
-
