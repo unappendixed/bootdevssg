@@ -1,7 +1,6 @@
 import unittest
 from blocknode import *
-from inlinetextconv import markdown_to_blocks
-
+from textnode import markdown_to_blocks
 
 class TestBlockNode(unittest.TestCase):
     def test_str_to_block_paragraph(self):

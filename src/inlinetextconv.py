@@ -124,31 +124,3 @@ def text_to_textnodes(text: str) -> list[TextNode]:
     node = split_nodes_link(node)
 
     return node
-
-
-def markdown_to_blocks(markdown: str) -> list[str]:
-
-    def flattenBuffer(buffer: list[str]) -> str:
-        output = "\n".join(x for x in buffer if x.strip() != "").strip()
-        if output != "":
-            return output
-        else:
-            return ""
-
-    lines = markdown.splitlines(True)
-    output_list: list[str] = []
-    buffer_list: list[str] = []
-    for line in lines:
-        if line == "\n" or line == "\r\n":
-            new_block = flattenBuffer(buffer_list)
-            if new_block != "":
-                output_list.append(new_block)
-            buffer_list = []
-        else:
-            buffer_list.append(line.strip())
-
-    if len(buffer_list) != 0:
-        final = flattenBuffer(buffer_list)
-        if final != "":
-            output_list.append(final)
-    return output_list

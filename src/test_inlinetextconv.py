@@ -1,11 +1,10 @@
 import unittest
 
-from textnode import TextNode
+from textnode import TextNode, markdown_to_blocks
 from leafnode import LeafNode
 from inlinetextconv import (
     extract_markdown_links,
     extract_markdown_images,
-    markdown_to_blocks,
     split_nodes_delimiter,
     split_nodes_image,
     split_nodes_link,
