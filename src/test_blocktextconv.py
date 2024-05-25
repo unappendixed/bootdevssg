@@ -47,9 +47,15 @@ class TestBlockConv(unittest.TestCase):
             block_type_paragraph,
         )
         actual = block_to_html_paragraph(sut)
-        expected = ParentNode("p", [
-            LeafNode(None, "This is just like a normal paragraph of text or whatever. Definitely nothing weird going on here.")
-            ])
+        expected = ParentNode(
+            "p",
+            [
+                LeafNode(
+                    None,
+                    "This is just like a normal paragraph of text or whatever. Definitely nothing weird going on here.",
+                )
+            ],
+        )
 
         self.assertEqual(actual, expected)
 
@@ -59,12 +65,15 @@ class TestBlockConv(unittest.TestCase):
             block_type_ul,
         )
         actual = block_to_html_ul(sut)
-        expected = ParentNode("ul", [
-            ParentNode("li", [LeafNode(None, "Bread")]),
-            ParentNode("li", [LeafNode(None, "Butter")]),
-            ParentNode("li", [LeafNode(None, "Beer")]),
-            ParentNode("li", [LeafNode(None, "Long lost brother")]),
-            ])
+        expected = ParentNode(
+            "ul",
+            [
+                ParentNode("li", [LeafNode(None, "Bread")]),
+                ParentNode("li", [LeafNode(None, "Butter")]),
+                ParentNode("li", [LeafNode(None, "Beer")]),
+                ParentNode("li", [LeafNode(None, "Long lost brother")]),
+            ],
+        )
 
         self.assertEqual(actual, expected)
 

@@ -27,6 +27,7 @@ class BlockError(ValueError):
 def process_string_to_list(str):
     return [text_node_to_html_node(x) for x in text_to_textnodes(str)]
 
+
 def markdown_to_html_node(markdown: str) -> ParentNode:
     block_strings = markdown_to_blocks(markdown)
     blocks = [str_to_block(s) for s in block_strings]
