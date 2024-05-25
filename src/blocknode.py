@@ -1,4 +1,5 @@
 import re
+from functools import reduce
 
 block_type_paragraph = "paragraph"
 block_type_heading = "heading"
@@ -54,15 +55,19 @@ def str_to_block(input: str) -> BlockNode:
         return BlockNode(stripped, block_type_heading, count)
 
     # Unordered Lists
-    if all([x.startswith("*") or x.startswith("-") for x in lines]):
-        # stripped = re.sub(r"^[\*\-]+ ", "", input, 1)
-        stripped = "\n".join([re.sub(r"^[\*\-] ", "", x) for x in lines])
-        return BlockNode(stripped, block_type_ul)
+    if input.startswith("- ") or input.startswith("* "):
+        input = input[2:]
+        stripped = input.split("\n- ")
+        stripped = reduce(list.__add__, [x.split("\n* ") for x in stripped])
+        stripped = [x.replace("\n", " ") for x in stripped]
+        return BlockNode("\n".join(stripped), block_type_ul)
 
     # Ordered Lists
-    if all([(re.match(r"^[0-9]+\. .+", x) is not None) for x in lines]):
-        stripped = "\n".join([re.sub(r"^[0-9]+. ", "", x, 1) for x in lines])
-        return BlockNode(stripped, block_type_ol)
+    if re.match(r"^[0-9]+\. .*", input) is not None:
+        input = re.sub(r"(^|\n)[0-9]+\. ", "\n__", input)
+        stripped = input.split("\n__")
+        stripped = [x.replace("\n", " ") for x in stripped]
+        return BlockNode("\n".join(stripped), block_type_ol)
 
     # Paragraph
     return BlockNode(input, block_type_paragraph)
